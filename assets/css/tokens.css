@@ -1,0 +1,11 @@
+:root{
+  --bg:#FAFAFD; --paper:#FFFFFF; --ink:#14161A; --text:#1F2328; --muted:#5A6068; --line:#E2E0EC; --surface:#F3F2F9;
+  --accent:#5B4BC4; --accent-t:#EEEBFB; --accent-d:#4638A3; --cover-bg:#E6E2F8;
+  --serif:Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --s1:.25rem;--s2:.5rem;--s3:1rem;--s4:1.5rem;--s5:2.5rem;--s6:4rem;--s7:6rem;
+  --measure:62ch; --wrap:72rem; --c:var(--accent); --c-t:var(--accent-t);
+  --cover-h:9rem; --cover-stroke:#8E82E0; --cover-stroke-o:.5; --cover-node:#7A6CDB; --cover-node-o:.8; --cover-hi:#5B4BC4;
+  --portrait-overlap:4.5rem; --portrait-overlap-narrow:1.5rem; --portrait-max:20rem; --portrait-max-narrow:9.5rem;
+  --position-measure:30ch;
+}
