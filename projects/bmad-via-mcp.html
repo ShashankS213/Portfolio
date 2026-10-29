@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BMAD-via-MCP platform — Shashank Sharma</title>
+<meta name="description" content="A proof-of-concept platform that lets product managers, architects and UX roles run BMAD's spec-driven workflows.">
+<meta name="theme-color" content="#FAFAFD">
+<link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/base.css"><link rel="stylesheet" href="../assets/css/components.css">
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="mark" aria-hidden="true">S</span>Shashank Sharma</a>
+  <nav class="nav" aria-label="Primary"><button class="nav-toggle" aria-expanded="false" aria-controls="nav-list">Menu</button>
+  <ul id="nav-list"><li><a href="../index.html#work">Work</a></li><li><a href="../index.html#about">About</a></li><li><a href="../index.html#contact">Contact</a></li><li><a class="btn dark" href="mailto:sharmashashank213@gmail.com">Get in touch</a></li></ul></nav>
+</div></header>
+<main id="main">
+<section class="cs-hero"><div class="wrap cs-hero-grid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../index.html#work">Selected work</a><span aria-hidden="true">/</span><span aria-current="page">BMAD-via-MCP platform</span></nav>
+    <h1>BMAD-via-MCP platform</h1>
+    <p class="cs-lede">A proof-of-concept platform that lets product managers, architects and UX roles run BMAD's spec-driven workflows with enterprise, workflow and project context, and publish the results to Jira.</p>
+    <dl class="cs-meta">
+      <div><dt>Status</dt><dd>Proof of concept</dd></div>
+      <div><dt>My role</dt><dd>Primary builder, with one teammate on the frontend</dd></div>
+      <div><dt>Tech stack</dt><dd>Python · React (Vite) · MCP · Gemini, with other LLMs via an API key</dd></div>
+      <div><dt>Works with</dt><dd>BMAD · Jira · Microsoft Teams</dd></div>
+    </dl>
+  </div>
+  <!-- A real screenshot of the app (with nothing confidential) would be the strongest hero image. Replace this card with it when available. -->
+  <aside class="runflow" aria-labelledby="rf-t"><h2 id="rf-t">How a workflow runs</h2>
+    <ol>
+      <li><strong>Pick a project and a workflow</strong> out of the six.</li>
+      <li><strong>Add context.</strong> Enterprise context is already in place. Add project context and a workflow manifest.</li>
+      <li><strong>Work with the LLM</strong> in a conversation and refine the artifact.</li>
+      <li><strong>Publish to Jira.</strong> The artifact goes up with its decision trace.</li>
+      <li><strong>Get approval in Jira,</strong> then move on to the next workflow.</li>
+    </ol>
+    <p>The last workflow publishes all epics and their child user stories to Jira.</p>
+  </aside>
+</div></section>
+<div class="cs-main"><div class="wrap">
+<!-- DRAFT: only confirmed facts. Remaining TODOs wait for answers; do not publish placeholders. -->
+<section class="cs-intro"><h2>Overview</h2>
+<p>BMAD is a spec-driven development method that developers normally use inside an IDE. This platform wraps BMAD's MCP server in a web application, so product managers, architects and UX roles can run its workflows themselves. Each workflow produces an artifact, and the platform keeps the decisions that led to it.</p></section>
+
+<div class="cs-grid2">
+<section><h2>Problem and context</h2>
+<p>The idea was to apply context engineering and spec-driven development with AI. Context engineering means giving the model the right project context. Spec-driven development means agreeing a clear specification before building.</p>
+<p>BMAD supports this, but it is built for developers working in an IDE. Product managers and architects mostly work in tools such as Jira and Confluence, not in an IDE. Using this approach with those roles was also requested by stakeholders, so we built an application around BMAD for them.</p></section>
+<section><h2>My role and contribution</h2>
+<p>I built most of the platform. A teammate built the frontend, and I later refined it after talking to the UI/UX team.</p>
+<p>An account-level technology lead shared ideas and checked progress, and a senior technical colleague guided when I asked for input.</p></section>
+</div>
+
+<section class="wide"><h2>What the platform does</h2>
+<p>It offers six workflows, one for each stage of early product definition:</p>
+<ul class="wf"><li>Brainstorming</li><li>Product Brief</li><li>PRD</li><li>Architecture</li><li>UX Design</li><li>Epics and Stories</li></ul>
+<p>Three kinds of context shape every workflow:</p>
+<div class="cs-cards3">
+<div class="info"><h3>Enterprise context</h3><p>Uploaded once at enterprise level. It holds organization context, engineering standards, architectural standards and similar material.</p></div>
+<div class="info"><h3>Workflow customization</h3><p>For each workflow, at project level, the user adds a manifest file in TOML. It can hold persistent facts, an artifact template and a definition of done.</p></div>
+<div class="info"><h3>Project context</h3><p>Optional, added before starting. It can be typed in, uploaded as a Markdown file, or pulled in by naming a Jira story.</p></div>
+</div>
+<p>The platform connects to the tools teams already use:</p>
+<div class="cs-cards2">
+<div class="info"><h3>Jira</h3><p>Connected with a personal access token (PAT). It could also connect through MCP. Jira holds each artifact for approval and, at the end, all epics and their child user stories.</p></div>
+<div class="info"><h3>Microsoft Teams</h3><p>Receives notifications for workflows, publications and approvals.</p></div>
+</div></section>
+
+<section class="wide"><h2>Architecture and implementation</h2>
+<div class="cs-grid2">
+<div><p>The backend is written in Python and the frontend is built with Vite and React. A custom MCP client connects the application to BMAD's MCP server.</p>
+<p>For each workflow, the application composes a prompt: BMAD's base workflow prompt, plus enterprise context, workflow customization and the project's own context. The result goes to an LLM. An orchestrator keeps track of workflow state and prerequisites, and artifact versions and lineage are stored.</p></div>
+<div><p>Gemini is the default model. Other models such as Claude or OpenAI can be used by adding an API key.</p><ul class="chips"><li class="chip"><span class="ic"><img src="../assets/img/tool-python.webp" alt="" width="20" height="20" loading="lazy"></span>Python</li><li class="chip"><span class="ic"><img src="../assets/img/tool-react.png" alt="" width="20" height="20" loading="lazy"></span>React (Vite)</li><li class="chip"><span class="ic"><img src="../assets/img/tool-mcp.svg" alt="" width="20" height="20" loading="lazy"></span>MCP</li><li class="chip"><b>Gm</b>Gemini</li></ul></div>
+</div>
+<figure class="diagram-wide"><svg viewBox="0 0 1280 660" role="img" aria-labelledby="dt dd"><title id="dt">Architecture of the BMAD-via-MCP platform</title><desc id="dd">A user works in a web application. An API and session layer, workflow orchestrator and BMAD client call BMAD through MCP. The workflow prompt is composed from the BMAD base prompt plus enterprise context, workflow customization and project context, and sent to an LLM. Outputs are published to Jira, notifications go to Microsoft Teams, and artifact and lineage data is stored.</desc><defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#14161A"/></marker></defs><rect class="ad-box" x="20" y="30" width="250" height="84" rx="4"/><text class="ad-t" x="32" y="52">User</text><text class="ad-s" x="32" y="72.0">Product, architecture, UX,</text><text class="ad-s" x="32" y="86.5">engineering and review personas</text><rect class="ad-tint" x="310" y="30" width="280" height="84" rx="4"/><text class="ad-t" x="322" y="52">Web application</text><text class="ad-s" x="322" y="72.0">Project selection · workflow launch ·</text><text class="ad-s" x="322" y="86.5">conversational interaction ·</text><text class="ad-s" x="322" y="101.0">artifact preview and refinement</text><path class="ad-ar" d="M270 72L310 72" marker-end="url(#ah)"/><text class="ad-lab" x="20" y="166">Six workflows</text><rect class="ad-box" x="20" y="180" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="203">1  Brainstorming</text><rect class="ad-box" x="20" y="224" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="247">2  Product Brief</text><rect class="ad-box" x="20" y="268" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="291">3  PRD</text><rect class="ad-box" x="20" y="312" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="335">4  Architecture</text><rect class="ad-box" x="20" y="356" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="379">5  UX Design</text><rect class="ad-box" x="20" y="400" width="250" height="36" rx="4"/><text class="ad-t" x="34" y="423">6  Epics and Stories</text><rect class="ad-cont" x="620" y="20" width="640" height="480" rx="6"/><text class="ad-lab" x="640" y="44">Internal architecture</text><path class="ad-ar" d="M590 90L636 90" marker-end="url(#ah)"/><rect class="ad-box" x="636" y="64" width="192" height="96" rx="4"/><text class="ad-t" x="648" y="86">API and session layer</text><text class="ad-s" x="648" y="106.0">Request handling</text><text class="ad-s" x="648" y="120.5">Project and session state</text><text class="ad-s" x="648" y="135.0">Streaming</text><rect class="ad-box" x="844" y="64" width="192" height="96" rx="4"/><text class="ad-t" x="856" y="86">Workflow orchestrator</text><text class="ad-s" x="856" y="106.0">Workflow routing</text><text class="ad-s" x="856" y="120.5">State and prerequisites</text><text class="ad-s" x="856" y="135.0">Artifact lifecycle</text><rect class="ad-box" x="1052" y="64" width="192" height="96" rx="4"/><text class="ad-t" x="1064" y="86">BMAD client</text><text class="ad-s" x="1064" y="106.0">MCP client adapter</text><text class="ad-s" x="1064" y="120.5">Tool discovery and calls</text><text class="ad-s" x="1064" y="135.0">Response handling</text><path class="ad-ar" d="M828 112L844 112" marker-end="url(#ah)"/><path class="ad-ar" d="M1036 112L1052 112" marker-end="url(#ah)"/><rect class="ad-box" x="1052" y="200" width="192" height="78" rx="4"/><text class="ad-t" x="1064" y="222">BMAD via MCP</text><text class="ad-s" x="1064" y="242.0">BMAD MCP server</text><text class="ad-s" x="1064" y="256.5">Workflow execution</text><path class="ad-ar" d="M1148.0 160L1148.0 200" marker-end="url(#ah)"/><rect class="ad-dark" x="720" y="206" width="260" height="86" rx="4"/><text class="ad-tw" x="732" y="228">Composed workflow prompt</text><text class="ad-sw" x="732" y="248.0">BMAD base workflow prompt</text><text class="ad-sw" x="732" y="262.5">+ context and customization</text><path class="ad-ar" d="M1052 240L980 244" marker-end="url(#ah)"/><rect class="ad-box" x="636" y="372" width="192" height="112" rx="4"/><text class="ad-t" x="648" y="394">Enterprise context</text><text class="ad-s" x="648" y="414.0">Business glossary</text><text class="ad-s" x="648" y="428.5">Engineering and security</text><text class="ad-s" x="648" y="443.0">standards</text><text class="ad-s" x="648" y="457.5">Architecture principles</text><rect class="ad-box" x="844" y="372" width="192" height="112" rx="4"/><text class="ad-t" x="856" y="394">Workflow customization</text><text class="ad-s" x="856" y="414.0">Templates, instructions</text><text class="ad-s" x="856" y="428.5">Rubrics, definition of done</text><text class="ad-s" x="856" y="443.0">Policy and guardrails</text><rect class="ad-box" x="1052" y="372" width="192" height="112" rx="4"/><text class="ad-t" x="1064" y="394">Project context</text><text class="ad-s" x="1064" y="414.0">Project goals</text><text class="ad-s" x="1064" y="428.5">Selected inputs</text><text class="ad-s" x="1064" y="443.0">Approved upstream artifacts</text><path class="ad-ar" d="M732.0 372L775 292" marker-end="url(#ah)"/><path class="ad-ar" d="M940.0 372L850 292" marker-end="url(#ah)"/><path class="ad-ar" d="M1148.0 372L935 292" marker-end="url(#ah)"/><rect class="ad-box" x="420" y="236" width="120" height="104" rx="18"/><text class="ad-big" x="480" y="294" text-anchor="middle">LLM</text><text class="ad-note" x="480" y="360" text-anchor="middle">Gemini by default;</text><text class="ad-note" x="480" y="374" text-anchor="middle">other models via API key</text><path class="ad-ar" d="M270 290L420 290" marker-end="url(#ah)"/><text class="ad-note" x="278" y="244">Selected workflow</text><text class="ad-note" x="278" y="258">contributes its</text><text class="ad-note" x="278" y="272">BMAD prompt</text><path class="ad-ar" d="M420 318L270 318" marker-end="url(#ah)"/><text class="ad-note" x="278" y="334">Generated artifact and</text><text class="ad-note" x="278" y="348">workflow response</text><path class="ad-ar" d="M540 270L720 252" marker-end="url(#ah)"/><text class="ad-lab" x="20" y="540">Enterprise integrations</text><rect class="ad-box" x="20" y="552" width="380" height="86" rx="4"/><text class="ad-t" x="32" y="574">Jira integration</text><text class="ad-s" x="32" y="594.0">Publish generated artifacts, create epics and stories,</text><text class="ad-s" x="32" y="608.5">read status for workflow gating</text><rect class="ad-box" x="420" y="552" width="380" height="86" rx="4"/><text class="ad-t" x="432" y="574">Microsoft Teams integration</text><text class="ad-s" x="432" y="594.0">Send workflow, publication and</text><text class="ad-s" x="432" y="608.5">approval notifications</text><rect class="ad-box" x="820" y="552" width="440" height="86" rx="4"/><text class="ad-t" x="832" y="574">Artifact and lineage data</text><text class="ad-s" x="832" y="594.0">Project and session metadata, artifact versions,</text><text class="ad-s" x="832" y="608.5">decision trace, workflow state</text><path class="ad-ar" d="M700 500L260 552" marker-end="url(#ah)"/><text class="ad-lbl" x="300" y="512">Artifacts, epics and stories</text><path class="ad-ar" d="M900 500L610 552" marker-end="url(#ah)"/><text class="ad-lbl" x="700" y="514">Notifications</text><path class="ad-ar" d="M1100 500L1040 552" marker-end="url(#ah)"/></svg><ol class="dflow" aria-label="Architecture overview as a list"><li><strong>User and web application.</strong> Product, architecture, UX, engineering and review personas choose a project, launch a workflow, talk to the LLM and refine the artifact.</li><li><strong>Internal layers.</strong> API and session layer, then the workflow orchestrator, then the BMAD client, which calls BMAD through MCP to run the workflow.</li><li><strong>Composed workflow prompt.</strong> BMAD's base prompt plus enterprise context, workflow customization and project context. It goes to the LLM, and the generated artifact comes back to the user.</li><li><strong>Outputs.</strong> Artifacts, epics and stories go to Jira, notifications go to Microsoft Teams, and artifact and lineage data is stored.</li></ol><figcaption>Simplified architecture overview, redrawn from my own design diagram.</figcaption></figure></section>
+
+<section class="wide"><h2>Approvals and decision trace</h2>
+<div class="cs-grid2">
+<div><p>The platform stores a decision trace: the decisions the person gave the LLM to arrive at an artifact. The artifact and its decision trace are published to Jira as an attachment on an epic or story, and the artifact must be approved there before the user can move on.</p></div>
+<div><p>Approvals started inside the application. It has personas, so a product manager creating an architecture could send it to an architect for approval. I later moved approvals to Jira. This is configurable per workflow, and we kept it for the PRD workflow.</p></div>
+</div>
+<div class="info"><h3>Why Jira</h3><p>We did not want people to stop using Jira, or to compete with it. Product managers already work across several platforms and have to prioritize their tools, and most teams track stories in Jira or a similar tool, so the platform avoids adding more complexity. Attaching artifacts to epics and stories also makes them easy to find in later stages.</p></div>
+</section>
+
+<section class="wide"><h2>Outcome, feedback and next steps</h2>
+<p>The proof of concept was delivered with six workflows, Jira and Teams integration, and a configurable approval flow.</p>
+<p>After a demo, the CTO and senior teams gave positive feedback. It suggested taking the platform further, from epics and stories into implementation and deployment.</p>
+<div class="cs-cards3">
+<div class="info"><h3>Implementation and deployment</h3><p>Extend the workflows beyond epics and stories.</p></div>
+<div class="info"><h3>Brownfield applications</h3><p>The proof of concept focused on greenfield (new) applications. The next step is to cover existing ones.</p></div>
+<div class="info"><h3>Institutional memory</h3><p>A knowledge graph of approved, well-written project learnings, so people across the organization can reuse them instead of starting from scratch.</p></div>
+</div>
+<!-- TODO Outcome: only verified results (demo audience, adoption, time saved). Add challenges and trade-offs when known. -->
+</section>
+<p class="back"><a class="btn" href="../index.html#work">&larr; Back to selected work</a></p>
+</div></div>
+</main>
+<footer class="site-footer"><div class="wrap"><p class="copy" style="margin-top:0">© 2026 Shashank Sharma · <a href="../index.html">Home</a> · <a href="https://www.linkedin.com/in/shashank-sharma-iimu/" rel="noopener">LinkedIn</a></p></div></footer>
+<script src="../assets/js/nav.js"></script>
+</body></html>
